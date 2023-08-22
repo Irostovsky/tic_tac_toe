@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 
 export default function Game() {
-  const [xIsNext, setXIsNext] = useState(true);
   const [history, setHistory] = useState([Array(9).fill(null)]);
 
   const squares = history.slice(-1)[0];
   const winner = calculateWinner(squares);
+  const nextPlayer = history.length % 2 == 0 ? "O" : "X";
 
   let status;
   if (winner) {
     status = `Winner is: ${winner}`;
   } else {
-    status = `Next player is: ${xIsNext ? "X" : "O"}`;
+    status = `Next player is: ${nextPlayer}`;
   }
 
   function handleClick(i) {
@@ -19,9 +19,8 @@ export default function Game() {
       return;
     }
     const nextSquares = squares.slice();
-    nextSquares[i] = xIsNext ? "X" : "O";
+    nextSquares[i] = nextPlayer;
     setHistory([...history, nextSquares]);
-    setXIsNext(!xIsNext);
   }
 
   return (
