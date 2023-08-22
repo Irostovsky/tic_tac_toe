@@ -1,18 +1,12 @@
 import React, { useState } from "react";
 
-function Square({ value, onSquareClick }) {
-  return (
-    <button className="square" onClick={onSquareClick}>
-      {value}
-    </button>
-  );
-}
-
-export default function Board() {
-  const [squares, setSquares] = useState(Array(9).fill(null));
+export default function Game() {
   const [xIsNext, setXIsNext] = useState(true);
+  const [history, setHistory] = useState([Array(9).fill(null)]);
 
+  const squares = history.slice(-1)[0];
   const winner = calculateWinner(squares);
+
   let status;
   if (winner) {
     status = `Winner is: ${winner}`;
@@ -26,10 +20,35 @@ export default function Board() {
     }
     const nextSquares = squares.slice();
     nextSquares[i] = xIsNext ? "X" : "O";
-    setSquares(nextSquares);
+    setHistory([...history, nextSquares]);
     setXIsNext(!xIsNext);
   }
 
+  return (
+    <div className="game">
+      <div className="game-board">
+        <Board
+          squares={history.slice(-1)[0]}
+          status={status}
+          handleClick={handleClick}
+        />
+      </div>
+      <div className="game-info">
+        <ol>{/* TODO */}</ol>
+      </div>
+    </div>
+  );
+}
+
+function Square({ value, onSquareClick }) {
+  return (
+    <button className="square" onClick={onSquareClick}>
+      {value}
+    </button>
+  );
+}
+
+function Board({ squares, status, handleClick }) {
   return (
     <React.Fragment>
       <div className="status">{status}</div>
