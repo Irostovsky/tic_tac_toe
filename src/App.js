@@ -2,12 +2,18 @@ import React, { useState } from "react";
 
 export default function Game() {
   const [history, setHistory] = useState([Array(9).fill(null)]);
+  const [step, setStep] = useState(0);
 
-  const nextPlayer = history.length % 2 == 0 ? "O" : "X";
+  const nextPlayer = step % 2 === 0 ? "X" : "O";
 
   function handlePlay(nextSquares) {
-    setHistory([...history, nextSquares]);
+    setHistory([...history.slice(0, step + 1), nextSquares]);
+    setStep(step + 1);
   }
+
+  const handleMove = (move) => {
+    setStep(move);
+  };
 
   const moves = history.map((squares, move) => {
     let description;
@@ -17,8 +23,14 @@ export default function Game() {
       description = "Start the game";
     }
     return (
-      <li>
-        <button>{description}</button>
+      <li key={move}>
+        <button
+          onClick={() => {
+            handleMove(move);
+          }}
+        >
+          {description}
+        </button>
       </li>
     );
   });
@@ -27,7 +39,7 @@ export default function Game() {
     <div className="game">
       <div className="game-board">
         <Board
-          squares={history.slice(-1)[0]}
+          squares={history.slice(step)[0]}
           nextPlayer={nextPlayer}
           onPlay={handlePlay}
         />
