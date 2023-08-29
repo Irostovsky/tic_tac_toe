@@ -7,12 +7,16 @@
   },
   "main": "/index.js",
   "devDependencies": {
+    "gh-pages": "^6.0.0",
     "react-scripts": "1.0.0"
   },
-  "name": "vy6j3f",
-  "description": null,
+  "name": "tic-tac-toe",
+  "description": "The simple game using react",
   "version": "0.0.0",
+  "homepage": "https://Irostovsky.github.io/tic_tac_toe",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
