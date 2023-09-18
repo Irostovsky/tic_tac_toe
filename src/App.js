@@ -82,24 +82,26 @@ function Board({ squares, nextPlayer, onPlay }) {
     onPlay(nextSquares);
   }
 
+  const boardRows = [0, 3, 6].map((e1) => {
+    return (
+      <div className="board-row" key={e1}>
+        {[0, 1, 2].map((e2) => {
+          const item = e1 + e2;
+          return (
+            <Square
+              value={squares[item]}
+              onSquareClick={() => handleClick(item)}
+              key={item}
+            />
+          );
+        })}
+      </div>
+    );
+  });
   return (
     <React.Fragment>
       <div className="status">{status}</div>
-      <div className="board-row">
-        <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
-        <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
-        <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
-      </div>
-      <div className="board-row">
-        <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
-        <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
-        <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
-      </div>
-      <div className="board-row">
-        <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
-        <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
-        <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
-      </div>
+      {boardRows}
     </React.Fragment>
   );
 }
