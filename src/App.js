@@ -82,7 +82,7 @@ function Board({ squares, nextPlayer, onPlay }) {
     onPlay(nextSquares);
   }
 
-  const boardRows = [0, 3, 6].map((e1) => {
+  const boardSquares = [0, 3, 6].map((e1) => {
     return (
       <div className="board-row" key={e1}>
         {[0, 1, 2].map((e2) => {
@@ -101,7 +101,7 @@ function Board({ squares, nextPlayer, onPlay }) {
   return (
     <React.Fragment>
       <div className="status">{status}</div>
-      {boardRows}
+      {boardSquares}
     </React.Fragment>
   );
 }
